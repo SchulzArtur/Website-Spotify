@@ -17,79 +17,119 @@
 
 <html>
 	<head>
+		<link rel="stylesheet" href="assets/css/register.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 		<title>Welcome to Spotify!</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="assets/js/register.js"></script>
 	</head>
 
 <body>
-	<div id="InputContainer">
-	<form id="loginForm" action="register.php" method="POST">
-		<h2>Login to your account</h2>
-
-			<p>
-				<?php echo $account->getError(Constants::$loginFailed); ?>
-				<label for="loginUsername">Username</label>
-				<input type="text" id="loginUsername" name="loginUsername" placeholder="e.g. Johny" required>
-			</p>
-			<p>
-				<label for="loginPassword">Password</label>
-				<input type="password" id="loginPassword" name="loginPassword" placeholder="Your Password" required>
-			</p>
-				<button type="submit" name="loginButton">LOG IN</button>
-	</form>
-
-	<form id="registerForm" action="register.php" method="POST">
-		<h2>Create your free account</h2>
-			<p>
-				<?php echo $account->getError(Constants::$usernameCharacters); ?>
-				<?php echo $account->getError(Constants::$usernameTaken); ?>
-				<label for="username">Username</label>
-				<input type="text" id="username" name="username" placeholder="e.g. Johny" value="<?php getInputValue('username'); ?>" required>
-			</p>
-
-			<p>
-				<?php echo $account->getError(Constants::$firstNameCharacters); ?>
-				<label for="firstName">First name</label>
-				<input type="text" id="firstName" name="firstName" placeholder="e.g. Johny" value="<?php getInputValue('firstName'); ?>" required>
-			</p>
-
-
-			<p>
-				<?php echo $account->getError(Constants::$lastNameCharacters); ?>
-				<label for="lastName">Last Name</label>
-				<input type="text" id="lastName" name="lastName" placeholder="e.g. Simpson" value="<?php getInputValue('lastName'); ?>" required>
-			</p>
-
-			<p>
-				<?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
-				<?php echo $account->getError(Constants::$emailInvalid); ?>
-				<?php echo $account->getError(Constants::$emailTaken); ?>
-				<label for="email">E-mail</label>
-				<input type="email" id="email" name="email" placeholder="e.g. JohnySimpson.com" value="<?php getInputValue('email') ?>" required>
-			</p>
-
-			<p>
-				<label for="email2">Confirm E-mail</label>
-				<input type="text" id="email2" name="email2" placeholder="e.g. JohnySimpson.com" value="<?php getInputValue('email2') ?>" required>
-			</p>
-
-			<p>
-				<?php echo $account->getError(Constants::$passwordsDoNoMatch); ?>
-				<?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
-				<?php echo $account->getError(Constants::$passwordCharacters); ?>
-				<label for="password">Password</label>
-				<input type="password" id="password" name="password" placeholder="Your Password"  required>
-			</p>
-
-			<p>
-				<label for="password2">Confim Password</label>
-				<input type="password" id="password2" name="password2" placeholder="Your Password"  required>
-			</p>
-				<button type="submit" name="registerButton">Sign Up</button>
-	</form>
+	<?php 
+	if(isset($_POST['registerButton'])) {
+		echo '<script>
+			$(document).ready(function() {
+				$("#loginForm").hide();
+				$("#registerForm").show();
+			});
+			</script>';
+	} else {
+		echo '<script>
+			$(document).ready(function() {
+				$("#loginForm").show();
+				$("#registerForm").hide();
+			});
+			</script>';
+	}
+	?>
 
 
 
 
+
+
+
+	<div id="background">
+		<div id="loginContainer">
+			<div id="InputContainer">
+				<form id="loginForm" action="register.php" method="POST">
+					<h2>Login to your account</h2>
+					<p>
+						<?php echo $account->getError(Constants::$loginFailed); ?>
+						<label for="loginUsername">Username</label>
+						<input type="text" id="loginUsername" name="loginUsername" placeholder="e.g. Johny" value="<?php getInputValue('loginUsername'); ?>" required>
+					</p>
+					<p>
+						<label for="loginPassword">Password</label>
+						<input type="password" id="loginPassword" name="loginPassword" placeholder="Your Password" required>
+					</p>
+						<button type="submit" name="loginButton">LOG IN</button>
+
+						<div class="hasAccountText"><span id="hideLogin">Don't have an Account yet? Sign up here.</span></div>
+				</form>
+
+				<form id="registerForm" action="register.php" method="POST">
+					<h2>Create your free account</h2>
+					<p>
+						<?php echo $account->getError(Constants::$usernameCharacters); ?>
+						<?php echo $account->getError(Constants::$usernameTaken); ?>
+						<label for="username">Username</label>
+						<input type="text" id="username" name="username" placeholder="e.g. Johny" value="<?php getInputValue('username'); ?>" required>
+					</p>
+
+					<p>
+						<?php echo $account->getError(Constants::$firstNameCharacters); ?>
+						<label for="firstName">First name</label>
+						<input type="text" id="firstName" name="firstName" placeholder="e.g. Johny" value="<?php getInputValue('firstName'); ?>" required>
+					</p>
+
+
+					<p>
+						<?php echo $account->getError(Constants::$lastNameCharacters); ?>
+						<label for="lastName">Last Name</label>
+						<input type="text" id="lastName" name="lastName" placeholder="e.g. Simpson" value="<?php getInputValue('lastName'); ?>" required>
+					</p>
+
+					<p>
+						<?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
+						<?php echo $account->getError(Constants::$emailInvalid); ?>
+						<?php echo $account->getError(Constants::$emailTaken); ?>
+						<label for="email">E-mail</label>
+						<input type="email" id="email" name="email" placeholder="e.g. JohnySimpson@gmail.com" value="<?php getInputValue('email') ?>" required>
+					</p>
+
+					<p>
+						<label for="email2">Confirm E-mail</label>
+						<input type="text" id="email2" name="email2" placeholder="e.g. JohnySimpson@gmail.com" value="<?php getInputValue('email2') ?>" required>
+					</p>
+
+					<p>
+						<?php echo $account->getError(Constants::$passwordsDoNoMatch); ?>
+						<?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
+						<?php echo $account->getError(Constants::$passwordCharacters); ?>
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password" placeholder="Your Password"  required>
+					</p>
+
+					<p>
+						<label for="password2">Confim Password</label>
+						<input type="password" id="password2" name="password2" placeholder="Your Password"  required>
+					</p>
+						<button type="submit" name="registerButton">Sign Up</button>
+						<div class="hasAccountText"><span id="hideRegister">Already have an Account? Log in here .</span></div>
+
+				</form>
+			</div>
+			<div id="loginText">
+				<h1>Get great music, right now</h1>
+				<h2>Listen to loads of songs for free</h2>
+				<ul>
+					<li>Discover music you'll fall in love with</li>
+					<li>Create your own playlist</li>
+					<li>Follow artists yo keep up to date</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
