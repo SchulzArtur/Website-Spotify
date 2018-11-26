@@ -1,9 +1,9 @@
 <?php  
+	include("includes/config.php");
 	include("includes/classes/Account.php");
 	include("includes/classes/Constants.php");
 
-	$account = new Account;
-
+	$account = new Account($connect);
 
 	include("includes/handlers/register-handler.php");
 	include("includes/handlers/login-handler.php");
@@ -22,9 +22,11 @@
 
 <body>
 	<div id="InputContainer">
-	<form id="loginForm" action="login.php" method="POST">
+	<form id="loginForm" action="register.php" method="POST">
 		<h2>Login to your account</h2>
+
 			<p>
+				<?php echo $account->getError(Constants::$loginFailed); ?>
 				<label for="loginUsername">Username</label>
 				<input type="text" id="loginUsername" name="loginUsername" placeholder="e.g. Johny" required>
 			</p>
@@ -32,13 +34,14 @@
 				<label for="loginPassword">Password</label>
 				<input type="password" id="loginPassword" name="loginPassword" placeholder="Your Password" required>
 			</p>
-				<button type="submit" name="loginButtom">LOG IN</button>
+				<button type="submit" name="loginButton">LOG IN</button>
 	</form>
 
 	<form id="registerForm" action="register.php" method="POST">
 		<h2>Create your free account</h2>
 			<p>
 				<?php echo $account->getError(Constants::$usernameCharacters); ?>
+				<?php echo $account->getError(Constants::$usernameTaken); ?>
 				<label for="username">Username</label>
 				<input type="text" id="username" name="username" placeholder="e.g. Johny" value="<?php getInputValue('username'); ?>" required>
 			</p>
@@ -59,6 +62,7 @@
 			<p>
 				<?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
 				<?php echo $account->getError(Constants::$emailInvalid); ?>
+				<?php echo $account->getError(Constants::$emailTaken); ?>
 				<label for="email">E-mail</label>
 				<input type="email" id="email" name="email" placeholder="e.g. JohnySimpson.com" value="<?php getInputValue('email') ?>" required>
 			</p>
